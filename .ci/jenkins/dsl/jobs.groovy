@@ -186,6 +186,7 @@ void setupBuildImageJob(JobType jobType) {
             stringParam('BUILD_KOGITO_APPS_URI', '', '(Optional) Git uri to the kogito-apps repository to use for tests.')
             stringParam('BUILD_KOGITO_APPS_REF', '', '(Optional) Git reference (branch/tag) to the kogito-apps repository to use for building. Default to BUILD_BRANCH_NAME.')
             stringParam('QUARKUS_PLATFORM_URL', Utils.getMavenQuarkusPlatformRepositoryUrl(this), 'URL to the Quarkus platform to use. The version to use will be guessed from artifacts.')
+            stringParam('UPDATE_KOGITO_VERSION', '', '(Optional) Update kogito to a specific version in the project')
 
             // Test information
             booleanParam('SKIP_TESTS', false, 'Skip tests')
@@ -347,7 +348,7 @@ void setupWeeklyDeployJob(JobType jobType) {
         QUARKUS_PLATFORM_NEXUS_URL: Utils.getMavenQuarkusPlatformRepositoryUrl(this),
     ])
 
-    jobParams.env.put('IMAGES_LIST', 'kogito-swf-builder,kogito-swf-devmode')
+    jobParams.env.put('IMAGES_LIST', 'kogito-swf-builder,kogito-swf-devmode,kogito-base-builder')
 
     KogitoJobTemplate.createPipelineJob(this, jobParams)?.with {
         parameters {
